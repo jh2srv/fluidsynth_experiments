@@ -7,3 +7,5 @@ Suggested packages:
 pip install pyfluidsynth
 fluidsynth: warning: Failed to set thread to high priority:
     https://forums.raspberrypi.com/viewtopic.php?t=211327
+
+pip install python-rtmidi

@@ -3,16 +3,12 @@ import rtmidi
 import fluidsynth
 
 class MidiInputHandler(object):
-    def __init__(self, port, fsynth ):
-        self.port = port
-        self._wallclock = time.time()
+    def __init__(self, fsynth ):
         self._fsynth = fsynth
 
     def __call__(self, event, data=None):
         message, deltatime = event
-        self._wallclock += deltatime
-        # if message[0] == 224:
-        #     print("[%s] @%0.6f %r" % (self.port, self._wallclock, message))
+
         if message[0] == 144:
             self._fsynth.noteon(0, message[1], message[2])
             return
@@ -29,16 +25,6 @@ class MidiInputHandler(object):
             self._fsynth.pitch_bend(0, value)
             print(value)
             return        
-        # print('\tdata ', data) # None
-        # print('\tdata ', type(data))
-
-def midi_callback(event, data = None):
-    message, deltatime = event
-    print("[%s] @%0.6f %r" % ('test', deltatime, message))
-    # print('\tdata ', data) # None
-    # print('\tdata ', type(data))
-
-
 fsynth = fluidsynth.Synth()
 fsynth.setting("audio.period-size", 256)
 fsynth.setting("audio.periods", 8)
@@ -59,19 +45,10 @@ print('\nSelect (MPKmini2 is keyboard) ...')
 x = input()
 midi_in.open_port(int(x))
 
-
-# midi_in.set_callback(midi_callback)
-
-
-
-
-midi_in.set_callback(MidiInputHandler('test', fsynth))
+midi_in.set_callback(MidiInputHandler(fsynth))
 
 while True:
     time.sleep(1)
-
-1
-
 
 # Messages:
 #   0x90 = 144 = Note on
