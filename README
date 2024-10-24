@@ -1,0 +1,9 @@
+sudo apt-get install fluidsynth
+sudo apt install python3.12-venv
+python -m venv env_fs
+Suggested packages:
+  fluid-soundfont-gs qt6-qmltooling-plugins jackd
+
+pip install pyfluidsynth
+fluidsynth: warning: Failed to set thread to high priority:
+    https://forums.raspberrypi.com/viewtopic.php?t=211327
